@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creation AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:Segoe UI, sans-serif;
+    background:#0e0e0e;
+    color:#fff;
+}
+
+/* INTRO MODAL */
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(10px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:10;
+}
+.modal{
+    width:90%;
+    max-width:420px;
+    background:#141414;
+    border-radius:26px;
+    padding:30px;
+    text-align:center;
+    animation:up .8s ease;
+}
+@keyframes up{
+    from{transform:translateY(60px);opacity:0}
+    to{transform:translateY(0);opacity:1}
+}
+.modal h1{margin:10px 0;font-size:28px}
+.modal p{color:#bbb;font-size:14px}
+.actions{margin-top:22px;display:flex;gap:12px;justify-content:center}
+.btn{
+    padding:12px 22px;
+    border-radius:30px;
+    border:none;
+    font-weight:600;
+    cursor:pointer;
+}
+.primary{background:#fff;color:#000}
+.outline{background:transparent;color:#fff;border:1px solid #444}
+
+/* CHAT UI */
+.chat-app{
+    display:none;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+.header{
+    padding:14px 18px;
+    border-bottom:1px solid #222;
+    font-weight:600;
+}
+.messages{
+    flex:1;
+    padding:16px;
+    overflow-y:auto;
+}
+.msg{
+    max-width:80%;
+    margin-bottom:14px;
+    padding:12px 14px;
+    border-radius:14px;
+    font-size:14px;
+    line-height:1.5;
+}
+.ai{background:#1f1f1f}
+.user{
+    background:#fff;
+    color:#000;
+    margin-left:auto;
+}
+.input-box{
+    display:flex;
+    gap:10px;
+    padding:14px;
+    border-top:1px solid #222;
+}
+input{
+    flex:1;
+    padding:12px 14px;
+    border-radius:20px;
+    border:none;
+    outline:none;
+}
+.send{
+    padding:12px 18px;
+    border-radius:20px;
+    border:none;
+    background:#fff;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div class="overlay" id="intro">
+    <div class="modal">
+        <h1>Aka7roy</h1>
+        <p>AI assistant for product strategy<br>and content creation.</p>
+        <div class="actions">
+            <a class="btn primary" href="https://www.instagram.com/aka7roy" target="_blank">Instagram</a>
+            <button class="btn outline" onclick="enter()">Enter</button>
+        </div>
+    </div>
+</div>
+
+<!-- CHAT -->
+<div class="chat-app" id="chat">
+    <div class="header">Creation — AI Assistant</div>
+    <div class="messages" id="messages">
+        <div class="msg ai">
+            Hi, I’m <b>Creation</b>.<br>
+            Ask me anything about product ideas, branding, or content creation.
+        </div>
+    </div>
+    <div class="input-box">
+        <input id="input" placeholder="Ask Creation..." />
+        <button class="send" onclick="send()">Send</button>
+    </div>
+</div>
+
+<script>
+function enter(){
+    document.getElementById('intro').style.display='none';
+    document.getElementById('chat').style.display='flex';
+}
+function send(){
+    const input=document.getElementById('input');
+    if(!input.value.trim())return;
+
+    const msg=document.createElement('div');
+    msg.className='msg user';
+    msg.innerText=input.value;
+    document.getElementById('messages').appendChild(msg);
+
+    input.value='';
+    document.getElementById('messages').scrollTop=9999;
+
+    setTimeout(()=>{
+        const ai=document.createElement('div');
+        ai.className='msg ai';
+        ai.innerText="I help with product clarity, positioning, hooks, scripts, and ideas. Be specific.";
+        document.getElementById('messages').appendChild(ai);
+        document.getElementById('messages').scrollTop=9999;
+    },600);
+}
+</script>
+
+</body>
+</html>
